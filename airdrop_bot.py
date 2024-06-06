@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 # Telegram Bot Token
-TELEGRAM_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'
+TELEGRAM_TOKEN = '7393453340:AAEGmI7DlaQmZ7M156flDrXiIK9j2U_A4rA'
 
 # Placeholders for channel, group, YouTube, and Facebook URLs
 CHANNEL_URL = 'https://t.me/YOUR_TELEGRAM_CHANNEL'
