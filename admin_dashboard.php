@@ -1,8 +1,21 @@
 <?php
 session_start();
-if (!isset($_SESSION['admin_id'])) {
-    header("Location: admin_login.php");
-    exit();
+include('db_connection.php');
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+        $_SESSION['user_id'] = $result->fetch_assoc()['id'];
+        header("Location: user_dashboard.php");
+        exit();
+    } else {
+        $error = "Invalid login details.";
+    }
 }
 ?>
 
@@ -10,18 +23,24 @@ if (!isset($_SESSION['admin_id'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
+    <title>User Login</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">
-        <h2>Admin Dashboard</h2>
-        <div class="list-group">
-            <a href="manage_investments.php" class="list-group-item">Manage Investments</a>
-            <a href="manage_notifications.php" class="list-group-item">Manage Notifications</a>
-            <a href="admin_manage_transactions.php" class="list-group-item">Manage Transactions</a>
-            <a href="admin_logout.php" class="list-group-item text-danger">Logout</a>
-        </div>
+        <h2>User Login</h2>
+        <?php if (isset($error)) { echo "<div class='alert alert-danger'>$error</div>"; } ?>
+        <form method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
     </div>
 </body>
 </html>
