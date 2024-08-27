@@ -1,0 +1,12 @@
+/* Custom styles for the platform */
+body {
+    background-color: #f8f9fa;
+}
+
+h2 {
+    color: #007bff;
+}
+
+.card-header, .card-title {
+    color: #007bff;
+}
